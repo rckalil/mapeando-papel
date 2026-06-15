@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Função para carregar o JSON e preencher o select
 function carregarOpcoesSelect() {
-    const urlJson = './setor.json'; // Atualize com o caminho correto do seu arquivo
+    const urlJson = 'flow_heat/setor.json'; // Atualize com o caminho correto do seu arquivo
 
     fetch(urlJson)
         .then(response => {
