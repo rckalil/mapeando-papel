@@ -1,0 +1,39 @@
+{
+    "name": "Distribution",
+    "children": [
+        {
+            "name": "Imports",
+            "children": [
+                {
+                    "name": "Bean",
+                    "value": 100.984375
+                },
+                {
+                    "name": "Roast & Ground",
+                    "value": 2.1875
+                },
+                {
+                    "name": "Soluble",
+                    "value": 2.703125
+                }
+            ]
+        },
+        {
+            "name": "Exports",
+            "children": [
+                {
+                    "name": "Bean",
+                    "value": 177.015625
+                },
+                {
+                    "name": "Roast & Ground",
+                    "value": 10.109375
+                },
+                {
+                    "name": "Soluble",
+                    "value": 0.703125
+                }
+            ]
+        }
+    ]
+}

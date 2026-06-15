@@ -1,0 +1,322 @@
+header {
+    display: flex;               
+    flex-direction: row; 
+    align-items: center;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+
+.space {
+    flex: 0 0 70%;
+
+}
+.header-title {
+    flex: 0 0 70%;
+    margin-left: 40%;
+    padding: 10px;
+    font-size: 1.5em;
+    font-weight: 400;
+}
+.header-button {
+    display: flex;
+    flex: 0 0 30%;
+    margin: 20px;
+    padding: 10px;
+    font-size: 1.5em;
+    font-weight: 400;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-items: left;
+}
+
+.tittle {
+    margin-left: 20px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+.column {
+    flex: 1;
+    padding: none;
+}
+
+.data {
+    flex: 0 0 65%;
+}
+
+.top_country {
+    flex: 0 0 35%;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('../fonts/Nunito/Nunito-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('../fonts/Nunito/Nunito-Italic-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+body {
+    min-width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    font-family: 'Nunito', sans-serif;
+}
+
+#search-box {
+    flex: 1;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#search-box:focus {
+    border: 1px solid #333;
+    outline: none;
+}
+
+#my-list {
+    list-style-type: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+    width: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+input[type="text"] {
+    width: 100%;
+}
+
+.buttons .row {
+
+    justify-content: space-between;
+}
+
+.row {
+    margin-top: 10px;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.button-active {
+    background-color: #333;
+    /* Cor mais escura */
+    color: #fff;
+    /* Texto branco */
+}
+
+.button-active-tipo {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+
+button {
+    background-color: #fff;
+    color: #333;
+    padding: 8px;
+    border-radius: 5px;
+    transition: all 0.5s;
+    border: 1px solid #ccc;
+}
+
+p {
+    margin: 0;
+}
+
+#both_button {
+    background-color: #9a806d;
+    color: #333;
+    padding: 8px;
+    border-radius: 5px;
+    transition: all 0.5s;
+    border: 1px solid #ccc;
+}
+
+#both_button:hover {
+    background-color: #f5ebe3;
+    transition: all 0.3s;
+}
+
+#arabica_button {
+    color: #333;
+    padding: 8px;
+    border-radius: 5px;
+    transition: all 0.5s;
+    border: 1px solid #ccc;
+    background-color: #e7bd95;
+}
+
+#arabica_button:hover {
+    background-color:#f5ebe3;
+    transition: all 0.3s;
+}
+
+#robusta_button {
+    color: #333;
+    padding: 8px;
+    border-radius: 5px;
+    transition: all 0.5s;
+    border: 1px solid #ccc;
+    background-color: #ffe4c2;
+}
+
+#robusta_button:hover {
+    background-color: #f5ebe3;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+    transition: all 0.3s;
+}
+
+.button-group,
+#attributes {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.ranking {
+    max-height: 400px;  /* Ajuste a altura conforme necessário */
+    overflow-y: auto;   /* Habilita a rolagem vertical quando necessário */
+    padding: 5px;
+    border: none; /* Apenas para visualização, pode ser removido ou ajustado */
+}
+
+.ranking ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.ranking li {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.ranking li:last-child {
+    border-bottom: none;
+}
+
+.container {
+    display: flex;
+    width: 100%; /* Assegura que o contêiner ocupe toda a largura da tela */
+    flex-direction: row; /* Alinha os elementos horizontalmente */
+    justify-content: space-between; /* Espaçamento entre elementos */
+    margin: 0; /* Remove qualquer margem externa */
+    padding: 0; /* Remove qualquer preenchimento interno */
+}
+
+.row {
+    display: flex;
+    justify-content: center; /* Alinhar os itens horizontalmente no centro */
+}
+
+#scroll {
+    width: 100%;
+    height: 530px; /* Altura fixa para a caixa de gráficos */
+    overflow-y: scroll; /* Adiciona uma barra de rolagem vertical */
+}
+
+
+
+#yearSlider {
+    width: 100%; 
+    max-width: 942.48px; 
+    display: block;  
+    margin: 0 auto;  
+}
+
+#yearDisplay {
+    display: block;  
+    text-align: center;  
+}
+
+.highlight {
+    stroke: #f6ff00;  
+    stroke-width: 1.5px;  
+}
+ 
+.series {
+    width: 100%;
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+}
+ 
+#timeSeries {
+    width: 100%;  
+    height: auto; 
+    max-width: 1196.263px;  
+    display: block; 
+    margin: 0 auto; 
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 2px;
+    background: #ddd;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2px solid #000;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+input[type=range]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2px solid #000;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.home-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.home-button svg {
+    fill: white; 
+}
+
+h1 {
+    text-align: center;           
+}
+

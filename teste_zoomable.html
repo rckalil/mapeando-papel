@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Coffee Around the World</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="css/style.css">
+    <!--scripts-->
+    <script src="js/script.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-fetch@3"></script>
+    <script src="https://d3js.org/d3-geo-projection.v1.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+</head>
+
+
+
+<body>
+    <header>
+        <div class="header-button">
+            <button onclick="window.location.href='index.html'" class="home-button" aria-label="Home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9L12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </button>
+            <div class="space">
+            </div>
+        </div>  
+        <div class="header-tittle">
+            <div class="tittle">
+                <h1>Coffee Around the World</h1>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div class="container">
+        <div id="search" class="column">
+            <p style="color: #e0e0e0; font-weight: bold; font-size: 24px;">Select 'All' to return to the map</p>
+            <input type="text" id="search-box" name="search-box" placeholder="Search country..." onkeyup="search()"
+                autocomplete="off">
+            <ul id="my-list">
+                <li class="country">All</li>
+                <li class="country">Albania</li>
+                <li class="country">Algeria</li>
+                <li class="country">Angola</li>
+                <li class="country">Argentina</li>
+                <li class="country">Armenia</li>
+                <li class="country">Australia</li>
+                <li class="country">Benin</li>
+                <li class="country">Bolivia</li>
+                <li class="country">Bosnia and Herzegovina</li>
+                <li class="country">Brazil</li>
+                <li class="country">Burundi</li>
+                <li class="country">Cameroon</li>
+                <li class="country">Canada</li>
+                <li class="country">Central African Republic</li>
+                <li class="country">Chile</li>
+                <li class="country">China</li>
+                <li class="country">Colombia</li>
+                <li class="country">Costa Rica</li>
+                <li class="country">Croatia</li>
+                <li class="country">Cuba</li>
+                <li class="country">Dominican Republic</li>
+                <li class="country">Ecuador</li>
+                <li class="country">Egypt</li>
+                <li class="country">El Salvador</li>
+                <li class="country">Equatorial Guinea</li>
+                <li class="country">Ethiopia</li>
+                <li class="country">Gabon</li>
+                <li class="country">Georgia</li>
+                <li class="country">Ghana</li>
+                <li class="country">Guatemala</li>
+                <li class="country">Guinea</li>
+                <li class="country">Guyana</li>
+                <li class="country">Haiti</li>
+                <li class="country">Honduras</li>
+                <li class="country">India</li>
+                <li class="country">Indonesia</li>
+                <li class="country">Iran</li>
+                <li class="country">Jamaica</li>
+                <li class="country">Jordan</li>
+                <li class="country">Kazakhstan</li>
+                <li class="country">Kenya</li>
+                <li class="country">Laos</li>
+                <li class="country">Liberia</li>
+                <li class="country">Madagascar</li>
+                <li class="country">Malawi</li>
+                <li class="country">Malaysia</li>
+                <li class="country">Mexico</li>
+                <li class="country">Montenegro</li>
+                <li class="country">Morocco</li>
+                <li class="country">New Caledonia</li>
+                <li class="country">New Zealand</li>
+                <li class="country">Nicaragua</li>
+                <li class="country">Nigeria</li>
+                <li class="country">North Macedonia</li>
+                <li class="country">Norway</li>
+                <li class="country">Panama</li>
+                <li class="country">Papua New Guinea</li>
+                <li class="country">Paraguay</li>
+                <li class="country">Peru</li>
+                <li class="country">Philippines</li>
+                <li class="country">Rwanda</li>
+                <li class="country">Saudi Arabia</li>
+                <li class="country">Senegal</li>
+                <li class="country">Serbia</li>
+                <li class="country">Sierra Leone</li>
+                <li class="country">Singapore</li>
+                <li class="country">South Africa</li>
+                <li class="country">Sri Lanka</li>
+                <li class="country">Switzerland</li>
+                <li class="country">Taiwan</li>
+                <li class="country">Tanzania</li>
+                <li class="country">Thailand</li>
+                <li class="country">Togo</li>
+                <li class="country">Trinidad and Tobago</li>
+                <li class="country">Uganda</li>
+                <li class="country">Ukraine</li>
+                <li class="country">United Kingdom</li>
+                <li class="country">United States</li>
+                <li class="country">Uruguay</li>
+                <li class="country">Venezuela</li>
+                <li class="country">Vietnam</li>
+                <li class="country">Yemen</li>
+                <li class="country">Zambia</li>
+                <li class="country">Zimbabwe</li>
+            </ul>
+            <p style="color: #e0e0e0; font-weight: bold; font-size: 24px;">You may search for a country or select it on the map</p>
+        </div>
+
+        <div class="column map"> <!--Visualização-->
+            <div class = "fisrt page">
+                <div class="row">
+                    <div id="zoomableChart"style="margin-top: 30px;"></div>
+                    <!-- Inclua seu script externo e garanta que está no diretório correto -->
+                    <script src="js/teste_zoomable.js"></script>
+                
+                    <!-- Inicialize a função após a carga do script -->
+                    <div class="column zoomable" style="display: none">
+                        <div class="row">
+                            <div class="data" style="margin-top: 30px ;">
+                                <svg id="zoomableChart" height="1000" width="1000"></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="container">
+        <div class="intro">
+            <div class="about-the-project">
+                <h2> <b> About the project:</b> </h2>
+                <p> This project aims to visualize the distribution of coffee around the world in 10 different aspects: </p>
+                <ul>
+                    <li><b>Production:</b> Refers to the smell or fragrance of the coffee.</li>
+                    <li><b>Total Distribution:</b> This variable can represent the total amount of coffee distributed within the country, whether through internal sales or distribution to other channels.</li>
+                    <li><b>Exports:</b>Indicates the quantity of coffee exported by a country or region in a given year.</li>
+                    <li><b>Imports:</b> Indicates the quantity of coffee imported by a country or region in a given year.</li>
+                    <li><b>Bean Exports:</b> Indicates the quantity of coffee beans exported by a country or region in a given year. </li>
+                    <li><b>Bean Imports:</b> Indicates the quantity of coffee beans imported by a country or region in a given year.</li>
+                    <li><b>Roast & Ground Exports:</b> It specifically indicates the amount of coffee that was roasted and ground before export. </li>
+                    <li><b>Roast & Ground Imports:</b> It specifically indicates the amount of coffee that was roasted and ground before import.</li>
+                    <li><b>Soluble Exports:</b> Refers to exports of soluble coffee.</li>
+                    <li><b>Soluble Imports:</b> Refers to imports of soluble coffee.</li>
+                </ul>
+                <p> Unit Description for attribute values is: 1000, 60-kg bags. </p>
+                <p> Thus, a coffee lover like us can better evaluate which package of coffee to take off the shelves!
+                </p>
+                <p> The data was collected from the United States Department of Agriculture
+                    Foreign Agricultural Service (USDA) and the visualization was developed using D3.js. </p>
+            </div>
+            <div class="about-the-data">
+                <h2> <b> About the data: </b> </h2>
+                <p>The Foreign Agricultural Service (FAS) of the United States Department of Agriculture (USDA) is a federal agency responsible for promoting exports of U.S. agricultural products and implementing U.S. agricultural trade and international cooperation policies. This dataset covers several important metrics related to coffee export, import and distribution.</p>
+                <p> The dataset is available at <a
+                        href="https://www.kaggle.com/datasets/parasrupani/coffee-distribution-across-94-counties"
+                        target="_blank">Kaggle</a>. The set was adapted where the score for each aspect ranges from 0 to 10 and was modified to range from 0 to 5, for better interpretation. We use 'avg' to indicate when the value refers to the average of some selection of the data.</p>
+            </div>
+            <div>
+                <h2> <b> Our Brazil </b> </h2>
+                <p></p>As we are Brazilians, we made a special visualization for Brazil.</p>
+
+                <button onclick="window.location.href='index_quali.html'">Brazil</button>
+            </div>
+        </div>  
+    </div>
+</body>
+</html>
