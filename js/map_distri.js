@@ -74,7 +74,7 @@ function renderMap(year = 2023) {
         var minNonZero = d3.min(dataValues.filter(value => value > 0));
         var max = d3.max(dataValues);
 
-        var colorScale = d3.scaleSequential(d3.interpolateRgb("#ffefdc", "#4a2f02"))
+        var colorScale = d3.scaleSequential(d3.interpolateRgb("#ebffdc", "#1f4a02"))
             .domain([minNonZero, max]);  // Usar minNonZero aqui
 
         drawLegend(colorScale, minNonZero, max);
@@ -283,7 +283,7 @@ function lineDistrib(svg, data, width, height) {
         .domain([0, d3.max(data, function(d) { return d[variable]; })])
         .range([height, 0]);
 
-    const colorScale = d3.scaleSequential(d3.interpolateRgb("#fdd9bd", "#321701"))
+    const colorScale = d3.scaleSequential(d3.interpolateRgb("#ebffdc", "#1f4a02"))
         .domain([0, d3.max(data, function(d) { return d[variable]; })]);
 
     
