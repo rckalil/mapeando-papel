@@ -126,7 +126,7 @@ calculateMinMax();
 
   // Build color scale
   const myColor = d3.scaleSequential()
-    .interpolator(d3.interpolateRgb("rgb(178, 135, 113)", "rgb(63, 23, 2)"))
+    .interpolator(d3.interpolateRgb("#ebffdc", "#1f4a02"))
     .domain([minValue, maxValue])
 
   // create a tooltip
@@ -196,7 +196,7 @@ const mousemove = function(event,d) {
   
 ///////////////////// Gradiente de cores
 // Define a escala linear para o gradiente de cores
-const colorScale = d3.scaleSequential(d3.interpolateRgb("rgb(178, 135, 113)", "rgb(63, 23, 2)"))
+const colorScale = d3.scaleSequential(d3.interpolateRgb("#ebffdc", "#1f4a02"))
   // .range(["#FF0000", "#00FF00"]) // Escolha as cores desejadas
   .domain([minValue, maxValue]); // Use os valores mínimos e máximos de sua escala de cores
 
