@@ -16,7 +16,7 @@ function prepareData() {
         //d("Dados CSV carregados:", data);
 
         // Defina o tipo de café a ser filtrado
-        const filterType = "Coffee not roasted or decaffeinated, in grain"; // Altere conforme necessário
+        const filterType = "Papel Kraft, de peso igual ou superior a 40 g/m2, mas não superior a 150 g/m2"; // Altere conforme necessário
 
         // Obter a lista de países únicos
         const countries = Array.from(new Set(data.map(d => d.Country)));
