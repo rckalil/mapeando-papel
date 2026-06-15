@@ -121,7 +121,7 @@ function buildHeatmap(data, filterType) {
         .range([0, totalHeight])
         .padding(0.01);
 
-    const colorScale = d3.scaleSequential(d3.interpolateRgb("#ffefdc", "#4a2f02"))
+    const colorScale = d3.scaleSequential(d3.interpolateRgb("#ebffdc", "#1f4a02"))
         .domain([0, d3.max(heatmapData, d => d.value)]);
 
     const rows = g.selectAll(".row")
