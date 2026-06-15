@@ -403,17 +403,17 @@ function renderZoomableChart(country) {
 
           const categories = ["Exports", "Imports", "Bean Exports", "Roast & Ground Imports", "Soluble Exports", "Bean Imports", "Roast & Ground Exports", "Soluble Imports"];
 
-        // Escolha cores específicas para cada categoria
-        const colorMapping = {
-            "Exports": "#492907",
-            "Roast & Ground Exports": "#703f0c",
-            "Bean Exports": "#703f0c",
-            "Soluble Exports": "#703f0c",
-            "Imports": "#ae773c",
-            "Roast & Ground Imports": "#cc8e4bn",
-            "Bean Imports": "#cc8e4b",
-            "Soluble Imports": "#cc8e4b"
-        };
+        // // Escolha cores específicas para cada categoria
+        // const colorMapping = {
+        //     "Exports": "#492907",
+        //     "Roast & Ground Exports": "#703f0c",
+        //     "Bean Exports": "#703f0c",
+        //     "Soluble Exports": "#703f0c",
+        //     "Imports": "#ae773c",
+        //     "Roast & Ground Imports": "#cc8e4bn",
+        //     "Bean Imports": "#cc8e4b",
+        //     "Soluble Imports": "#cc8e4b"
+        // };
 
 
         const color = d3.scaleOrdinal()
