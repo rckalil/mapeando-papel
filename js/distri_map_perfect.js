@@ -48,7 +48,7 @@ function renderMap() {
         var dataById = new Map(data.map(d => [d.id, +d[variable]]));
         var dataValues = data.map(d => +d[variable]);
         var rankings = updateRanking(data); // Atualiza o ranking e obtém os rankings
-        var colorScale = d3.scaleSequential(d3.interpolateRgb("#ffefdc", "#4a2f02"))
+        var colorScale = d3.scaleSequential(d3.interpolateRgb("#ebffdc", "#1f4a02"))
             .domain([d3.min(dataValues), d3.max(dataValues)]);
 
         drawLegend(colorScale, d3.min(dataValues), d3.max(dataValues));
@@ -288,7 +288,7 @@ function lineDistrib(svg, data, width, height) {
         .range([height, 0]);
 
     // Define a escala de cor
-    const colorScale = d3.scaleSequential(d3.interpolateRgb("#fdd9bd", "#321701"))
+    const colorScale = d3.scaleSequential(d3.interpolateRgb("#ebffdc", "#1f4a02"))
         .domain([0, d3.max(data, function(d) { return d[variable]; })]);
 
     // Adiciona os eixos X e Y ao SVG
