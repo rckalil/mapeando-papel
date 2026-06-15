@@ -1,6 +1,5 @@
 function prepareData() {
     d3.csv("big-3.csv").then(function(data) {
-        //d("Dados CSV carregados:", data);
         // Formatar os dados corretamente
         data.forEach(d => {
             d.YearMonth = parseFloat(d.Year.slice(-2) + "." + (d.Month.length === 1 ? "0" + d.Month : d.Month));
@@ -12,18 +11,43 @@ function prepareData() {
             d.Value = +d.Value;
         });
 
-        // Verificar a estrutura dos dados
-        //d("Dados CSV carregados:", data);
+        // =================================================================
+        // NOVA FUNCIONALIDADE: POPULAR E CONFIGURAR O SELECT DINAMICAMENTE
+        // =================================================================
+        
+        // 1. Extrair os tipos de produtos únicos da coluna 'Info' e ordenar de A-Z
+        const produtosUnicos = Array.from(new Set(data.map(d => d.Info)))
+                                    .filter(d => d) // Remove nulos ou vazios
+                                    .sort();
 
-        // Defina o tipo de café a ser filtrado
-        const filterType = "Papel Kraft, de peso igual ou superior a 40 g/m2, mas não superior a 150 g/m2"; // Altere conforme necessário
+        // 2. Selecionar o elemento HTML <select>
+        const selectElement = d3.select("#select-atributos");
+        
+        // Limpar a mensagem de "Carregando..."
+        selectElement.html("");
+
+        // 3. Inserir as opções dinâmicas no select
+        selectElement.selectAll("option")
+            .data(produtosUnicos)
+            .enter()
+            .append("option")
+            .attr("value", d => d)
+            .text(d => d);
+
+        // 4. Se a variável global ainda não estiver definida, pegamos o primeiro item da lista
+        if (typeof variable === 'undefined' || !variable) {
+            variable = produtosUnicos[0];
+        } else {
+            // Caso já exista um valor inicial, força o select a exibir ele como selecionado
+            selectElement.property("value", variable);
+        }
+
+        // =================================================================
 
         // Obter a lista de países únicos
         const countries = Array.from(new Set(data.map(d => d.Country)));
         // Ordenar os países em ordem alfabética
         countries.sort();
-
-        
 
         // Função para selecionar ou desmarcar todos os países
         function toggleSelectAll(checked) {
@@ -32,37 +56,11 @@ function prepareData() {
             updateHeatmap();
         }
 
-        
-
         // Construir o heatmap inicial com todos os dados
         updateHeatmap();
 
-        function toggleActiveButton(value, selector, activeClass, selectedValue) {
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(button => {
-                if (button.innerText === selectedValue) {
-                    button.classList.add(activeClass);
-                } else {
-                    button.classList.remove(activeClass);
-                }
-            });
-        }
-        
-        function updateVariable(newVariable) {
-            variable = newVariable;
-            //d("Variável atualizada para:", variable);
-            toggleActiveButton(newVariable, "#attributes-button", 'button-active', newVariable);
-            updateHeatmap();
-        }
-
-    // Adicionar evento de clique aos botões
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            const buttonText = this.innerText;
-            updateVariable(buttonText);
-        });
-    });
+        // Nota: A função toggleActiveButton e os listeners manuais de botões foram 
+        // removidos daqui já que o evento 'onchange' do HTML cuida do select.
 
     }).catch(function(error) {
         console.error("Erro ao carregar o arquivo CSV:", error);
@@ -72,15 +70,12 @@ function prepareData() {
 // Função para obter os países selecionados
 function getSelectedCountries() {
     const checkboxes = document.querySelectorAll(".selected");
-    //d("Checkboxes:", checkboxes);
     return Array.from(checkboxes).map(path => path.__data__.id);
-    //return Array.from(checkboxes).map(checkbox => checkbox.getAttribute("data-country"));
 }
 
 // Função para atualizar o heatmap com base nos filtros selecionados
 function updateHeatmap() {
     d3.csv("big-3.csv").then(function(data) {
-        //d("Dados CSV carregados:", data);
         // Formatar os dados corretamente
         data.forEach(d => {
             d.YearMonth = parseFloat(d.Year.slice(-2) + "." + (d.Month.length === 1 ? "0" + d.Month : d.Month));
@@ -93,15 +88,25 @@ function updateHeatmap() {
 
         const selectedCountries = getSelectedCountries();
         console.log(selectedCountries);
-        //d("Países selecionados:", selectedCountries);
-        //const selectedCountries = countries;
-        const filterType = document.querySelector('button.button-active').innerText;
+        
+        // =================================================================
+        // AJUSTE: Pegar o tipo de filtro diretamente da caixa de seleção (<select>)
+        // =================================================================
+        const select = document.getElementById('select-atributos');
+        const filterType = select ? select.value : variable;
+        // =================================================================
+
         if (selectedCountries.length === 0) {
             buildHeatmap([], filterType); // Sem dados se nenhum país estiver selecionado
         } else {
             const filteredData = data.filter(d => selectedCountries.includes(d.Code) && d.Info === filterType);
-            //d("Dados filtrados:", filteredData);
             buildHeatmap(filteredData, filterType);
         }
     });
+}
+
+// Função chamada pelo evento 'onchange' do seu HTML <select>
+function updateVariable(newVariable) {
+    variable = newVariable;
+    updateHeatmap();
 }
