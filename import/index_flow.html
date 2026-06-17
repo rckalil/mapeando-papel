@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+    <title>Inserção internacional e desenvolvimento: o caso da indústria de papel e celulose no Brasil</title>
+    <link rel="stylesheet" href="flow.css">
+</head>
+<body>
+    <header>
+        <div class="header-button">
+            <button onclick="window.location.href='../index.html'" class="home-button" aria-label="Home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="2vw" height="3vh" fill="currentColor" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9L12 2l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </button>
+            <button onclick="window.location.href='../index_distrib.html'" class="home-button" aria-label="Home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="2vw" height="3vh" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 21c-1.66 0-3-1.34-3-3v-1h-6v1c0 1.66-1.34 3-3 3s-3-1.34-3-3v-1H2v-1c0-2.21 1.79-4 4-4h12c2.21 0 4 1.79 4 4v1h-2v1c0 1.66-1.34 3-3 3zm-7-6V8.97L5.53 6.42a1.78 1.78 0 0 1-.53-1.19C5 3.9 6.79 3 8.28 3H15.72C17.21 3 19 3.9 19 5.23c0 .51-.2 1-.53 1.19L12 8.97V15z"></path>
+                </svg>
+            </button>
+            <button onclick="window.location.href='index_flow.html'" class="home-button" aria-label="Home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="2vw" height="3vh" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 1C5.92 1 1 5.92 1 12s4.92 11 11 11 11-4.92 11-11S18.08 1 12 1zm0 20c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9zm-.5-13H10v2H8v2h2v2H8v2h2v2h1.5c1.31 0 2.37-.83 2.84-2h2.16v-2h-2.04A3.499 3.499 0 0 0 12.5 8zM12 13h1v2h-1v-2z"></path>
+                </svg>
+            </button>         
+            
+            <div class="space">
+            </div>
+        </div>  
+        <div class="header-tittle">
+            <div class="tittle">
+                <h1>Coffee Around the World</h1>
+            </div>
+        </div>
+    </header>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+    <script src="heatmap.js"></script>
+    <script src="data.js"></script>
+    <script src="map.js"></script>
+    <script src="begin.js"></script>
+    
+    <div id="container">
+        <div id="heatmap-container">
+            <div id="title" class="sticky">Fluxo de papel e celulose brasileiros</div>
+            <!--<p style="color: #8c8f8ca4; font-weight: bold; font-size: 16px;">Here you can see the flow of coffee exported from Brazil to the world.</p>-->
+
+            <div id="heatmap" style="display: inline-block;"></div>
+            <div id="legend" class="sticky" style="display: inline-block;"></div>
+        </div>
+        <div id="attributes">
+            <p style="color: #8c8f8ca4; font-weight: bold; font-size: 1.5vh;">Here you may choose a class of merchandise exported.</p>
+            <p style="color: #8c8f8ca4; font-weight: bold; font-size: 1.5vh;">You can also choose whether the countries will be ordered by total import or just alphabetically.</p>
+            <div class="row buttons">
+                <label class="checkbox-label">
+                    <p style="font-size: 2vh;">Order</p>
+                    <input type="checkbox" checked class="order-checkbox">
+                </label>
+                
+                <select id="select-atributos" onchange="updateVariable(this.value)" style="font-size: 1.5vh; padding: 5px; min-width: 250px; max-width: 400px;">
+                    <option value="">Carregando produtos...</option>
+                </select>
+            </div>
+            <p style="color: #8c8f8ca4; font-weight: bold; font-size: 2vh;">Here you can choose the countries.</p>
+            <div id="map" class="map"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="intro">
+            <div class="about-the-project">
+                <h2 style="font-size: 1.5vw;"> <b> About the visualization:</b> </h2>
+                <p style="font-size: 1vw;"> This page aims to visualize the travel of coffee, in kilos, from Brazil to the
+                    world during the last years. </p>
+                <p style="font-size: 1vw;"> Thus, a coffee lover like us can find out the greater consumers and which countries have a similar consumption! Even further, we can find periods of time that changed the coffee market.
+                </p>
+                <p style="font-size: 1vw;"> The data was collected from the Comex Stat System and the open data from SECEX - Secretaria do Comércio Exterior.
+                     The visualization was developed using D3.js. </p>
+            </div>
+            <div class="about-the-data">
+                <h2 style="font-size: 1.5vw;"> <b> About the data: </b> </h2>
+                <p style="font-size: 1vw;"></p>
+                <p style="font-size: 1vw;"> The dataset is available at <a
+                        href="https://www.gov.br/mdic/pt-br/assuntos/comercio-exterior/estatisticas/base-de-dados-bruta"
+                        target="_blank">Gov.br</a>. The data was grouped so that the values of traffic corresponding to the same time, destiny and coffee wrapper, are summed up.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

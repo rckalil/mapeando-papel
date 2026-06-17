@@ -1,0 +1,6 @@
+[
+  { "id": "papel_escrita", "nome": "Papel/cartão para escrita, etc, impressos/estampados/perfurados" },
+  { "id": "papel_kraft", "nome": "Papel e cartão kraft, não revestidos" },
+  { "id": "papel_cartao", "nome": "Cartão duplex/triplex para embalagens" },
+  { "id": "papel_ondulado", "nome": "Papel ou cartão ondulado (canelado)" }
+]
