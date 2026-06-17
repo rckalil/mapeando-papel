@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../images/favicon.png">
-    <title>Coffee Around the World</title>
+    <title>Inserção internacional e desenvolvimento: o caso da indústria de papel e celulose no Brasil</title>
     <link rel="stylesheet" href="flow.css">
 </head>
 <body>
@@ -47,21 +47,22 @@
     
     <div id="container">
         <div id="heatmap-container">
-            <div id="title" class="sticky">Coffee export flows</div>
-            <div id="subtitle" class="sticky">From Brazil to the world, in kilos</div>
+            <div id="title" class="sticky">Fluxo de papel e celulose brasileiros</div>
             <!--<p style="color: #8c8f8ca4; font-weight: bold; font-size: 16px;">Here you can see the flow of coffee exported from Brazil to the world.</p>-->
-            <p style="color: #8c8f8ca4; font-weight: bold; font-size: 1.5vh;">Try rearranging the lines by grabbing them.</p>
+
             <div id="heatmap" style="display: inline-block;"></div>
             <div id="legend" class="sticky" style="display: inline-block;"></div>
         </div>
         <div id="attributes">
-            <p style="color: #8c8f8ca4; font-weight: bold; font-size: 1.5vh;">Here you may choose a class of coffee exported.</p>
+            <p style="color: #8c8f8ca4; font-weight: bold; font-size: 1.5vh;">Here you may choose a class of merchandise exported.</p>
             <p style="color: #8c8f8ca4; font-weight: bold; font-size: 1.5vh;">You can also choose whether the countries will be ordered by total import or just alphabetically.</p>
             <div class="row buttons">
                 <label class="checkbox-label">
                     <p style="font-size: 2vh;">Order</p>
                     <input type="checkbox" checked class="order-checkbox">
                 </label>
+                
+                <input type="text" id="search-input" placeholder="Buscar produto..." onkeyup="filterSelectOptions()" style="font-size: 1.5vh; padding: 5px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px;">
                 
                 <select id="select-atributos" onchange="updateVariable(this.value)" style="font-size: 1.5vh; padding: 5px; min-width: 250px; max-width: 400px;">
                     <option value="">Carregando produtos...</option>
@@ -91,5 +92,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Array para armazenar os produtos originais
+        let originalOptions = [];
+
+        function filterSelectOptions() {
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const select = document.getElementById('select-atributos');
+
+            // Salva as opções na memória na primeira vez que o usuário digita algo
+            // Isso garante que o 'data.js' já terminou de carregar os produtos no select
+            if (originalOptions.length === 0 && select.options.length > 1) {
+                originalOptions = Array.from(select.options).map(opt => ({
+                    value: opt.value,
+                    text: opt.text
+                }));
+            }
+
+            // Se originalOptions ainda estiver vazio (dados não carregaram), aborta a função
+            if (originalOptions.length === 0) return;
+
+            // Limpa as opções atuais do select
+            select.innerHTML = '';
+
+            // Filtra o array original baseado no texto buscado e adiciona as opções de volta
+            originalOptions.forEach(opt => {
+                if (opt.text.toLowerCase().includes(input)) {
+                    const newOption = document.createElement('option');
+                    newOption.value = opt.value;
+                    newOption.text = opt.text;
+                    select.appendChild(newOption);
+                }
+            });
+            
+            // Opcional: Se a busca retornar apenas um item, já dispara a atualização do gráfico
+            if (select.options.length === 1 && input !== "") {
+                select.value = select.options[0].value;
+                updateVariable(select.value);
+            }
+        }
+    </script>
 </body>
 </html>
