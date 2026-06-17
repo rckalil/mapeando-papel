@@ -62,6 +62,8 @@
                     <input type="checkbox" checked class="order-checkbox">
                 </label>
                 
+                <input type="text" id="search-input" placeholder="Buscar produto..." onkeyup="filterSelectOptions()" style="font-size: 1.5vh; padding: 5px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                
                 <select id="select-atributos" onchange="updateVariable(this.value)" style="font-size: 1.5vh; padding: 5px; min-width: 250px; max-width: 400px;">
                     <option value="">Carregando produtos...</option>
                 </select>
@@ -90,5 +92,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Array para armazenar os produtos originais
+        let originalOptions = [];
+
+        function filterSelectOptions() {
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const select = document.getElementById('select-atributos');
+
+            // Salva as opções na memória na primeira vez que o usuário digita algo
+            // Isso garante que o 'data.js' já terminou de carregar os produtos no select
+            if (originalOptions.length === 0 && select.options.length > 1) {
+                originalOptions = Array.from(select.options).map(opt => ({
+                    value: opt.value,
+                    text: opt.text
+                }));
+            }
+
+            // Se originalOptions ainda estiver vazio (dados não carregaram), aborta a função
+            if (originalOptions.length === 0) return;
+
+            // Limpa as opções atuais do select
+            select.innerHTML = '';
+
+            // Filtra o array original baseado no texto buscado e adiciona as opções de volta
+            originalOptions.forEach(opt => {
+                if (opt.text.toLowerCase().includes(input)) {
+                    const newOption = document.createElement('option');
+                    newOption.value = opt.value;
+                    newOption.text = opt.text;
+                    select.appendChild(newOption);
+                }
+            });
+            
+            // Opcional: Se a busca retornar apenas um item, já dispara a atualização do gráfico
+            if (select.options.length === 1 && input !== "") {
+                select.value = select.options[0].value;
+                updateVariable(select.value);
+            }
+        }
+    </script>
 </body>
 </html>
