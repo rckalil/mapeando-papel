@@ -1,5 +1,5 @@
 function prepareData() {
-    d3.csv("big-3.csv").then(function(data) {
+    d3.csv("../flow_heat/big-3.csv").then(function(data) {
         // Formatar os dados corretamente
         data.forEach(d => {
             d.YearMonth = parseFloat(d.Year.slice(-2) + "." + (d.Month.length === 1 ? "0" + d.Month : d.Month));
@@ -75,7 +75,7 @@ function getSelectedCountries() {
 
 // Função para atualizar o heatmap com base nos filtros selecionados
 function updateHeatmap() {
-    d3.csv("big-3.csv").then(function(data) {
+    d3.csv("../flow_heat/big-3.csv").then(function(data) {
         // Formatar os dados corretamente
         data.forEach(d => {
             d.YearMonth = parseFloat(d.Year.slice(-2) + "." + (d.Month.length === 1 ? "0" + d.Month : d.Month));
