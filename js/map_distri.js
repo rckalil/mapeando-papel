@@ -32,6 +32,29 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleActiveButton(initialVariable, '#attributes button', 'button-active', initialVariable);
 });
 
+let fluxoAtual = 'Exports'; // Valor padrão
+
+function trocarFluxo(novoFluxo) {
+    fluxoAtual = novoFluxo;
+    // O seu código já tem renderMap() e updateVariable(), 
+    // force uma atualização:
+    renderMap();
+}
+
+function renderMap(year = 2023) {
+    svg_mapa.selectAll("*").remove();
+
+    Promise.all([
+        d3.json("geo_data/world.geojson"),
+        Promise.resolve(currentCSV)
+    ]).then(function ([world, data]) {
+        // Agora busca pela chave baseada no fluxo
+        // Exemplo: d[fluxoAtual] (que será 'Exports' ou 'Imports')
+        var dataById = new Map(data.map(d => [d.id, +d[fluxoAtual]]));
+        // ... restante da lógica de escala e desenho
+    });
+}
+
 function initializeMap() {
     renderZoomableChart("Brazil");
     width = 942.48;

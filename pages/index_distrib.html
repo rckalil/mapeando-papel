@@ -61,6 +61,14 @@
                         <button onclick="updateVariable('Roast & Ground Exports')">Roast & Ground Exports</button>
                         <button onclick="updateVariable('Soluble Exports')">Soluble Exports</button>
                     </div>
+                    <div class="toggle-container">
+    <label>
+        <input type="radio" name="fluxo" value="Exports" checked onchange="trocarFluxo(this.value)"> Exportação
+    </label>
+    <label>
+        <input type="radio" name="fluxo" value="Imports" onchange="trocarFluxo(this.value)"> Importação
+    </label>
+</div>
                 </div>
                     <div id="attributes" class="row">
                         <button onclick="updateVariable('Production')">Production</button>
