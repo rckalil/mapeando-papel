@@ -1,13 +1,10 @@
 // Variáveis globais
-var variable = "Total Distribution";
-var currentCSV = d3.csv("data_dist/country_data_until_1960.csv"); // Caminho padrão do arquivo CSV
+var variable = "Exports";
+var currentCSV = d3.csv("data_dist/country_data_until_2015.csv"); // Caminho padrão do arquivo CSV
 var svg_mapa, projection, path, tooltip;
-var years_list = ['data_dist/country_data_until_1960.csv', 'data_dist/country_data_until_1961.csv', 'data_dist/country_data_until_1962.csv', 'data_dist/country_data_until_1963.csv', 'data_dist/country_data_until_1964.csv', 'data_dist/country_data_until_1965.csv', 'data_dist/country_data_until_1966.csv', 'data_dist/country_data_until_1967.csv', 'data_dist/country_data_until_1968.csv', 'data_dist/country_data_until_1969.csv', 'data_dist/country_data_until_1970.csv', 'data_dist/country_data_until_1971.csv', 'data_dist/country_data_until_1972.csv', 'data_dist/country_data_until_1973.csv', 'data_dist/country_data_until_1974.csv', 'data_dist/country_data_until_1975.csv', 
-'data_dist/country_data_until_1976.csv', 'data_dist/country_data_until_1977.csv', 'data_dist/country_data_until_1978.csv', 'data_dist/country_data_until_1979.csv', 'data_dist/country_data_until_1980.csv', 'data_dist/country_data_until_1981.csv', 'data_dist/country_data_until_1982.csv', 'data_dist/country_data_until_1983.csv', 'data_dist/country_data_until_1984.csv', 'data_dist/country_data_until_1985.csv', 'data_dist/country_data_until_1986.csv', 'data_dist/country_data_until_1987.csv', 'data_dist/country_data_until_1988.csv', 'data_dist/country_data_until_1989.csv', 'data_dist/country_data_until_1990.csv', 'data_dist/country_data_until_1991.csv', 'data_dist/country_data_until_1992.csv', 
-'data_dist/country_data_until_1993.csv', 'data_dist/country_data_until_1994.csv', 'data_dist/country_data_until_1995.csv', 'data_dist/country_data_until_1996.csv', 'data_dist/country_data_until_1997.csv', 'data_dist/country_data_until_1998.csv', 'data_dist/country_data_until_1999.csv', 'data_dist/country_data_until_2000.csv', 'data_dist/country_data_until_2001.csv', 'data_dist/country_data_until_2002.csv', 'data_dist/country_data_until_2003.csv', 'data_dist/country_data_until_2004.csv', 'data_dist/country_data_until_2005.csv', 'data_dist/country_data_until_2006.csv', 'data_dist/country_data_until_2007.csv', 'data_dist/country_data_until_2008.csv', 'data_dist/country_data_until_2009.csv', 
-'data_dist/country_data_until_2010.csv', 'data_dist/country_data_until_2011.csv', 'data_dist/country_data_until_2012.csv', 'data_dist/country_data_until_2013.csv', 'data_dist/country_data_until_2014.csv', 'data_dist/country_data_until_2015.csv', 'data_dist/country_data_until_2016.csv', 'data_dist/country_data_until_2017.csv', 'data_dist/country_data_until_2018.csv', 'data_dist/country_data_until_2019.csv', 'data_dist/country_data_until_2020.csv', 'data_dist/country_data_until_2021.csv', 'data_dist/country_data_until_2022.csv', 'data_dist/country_data_until_2023.csv'];
+var years_list = ['data_dist/country_data_until_2015.csv', 'data_dist/country_data_until_2016.csv', 'data_dist/country_data_until_2017.csv', 'data_dist/country_data_until_2018.csv', 'data_dist/country_data_until_2019.csv', 'data_dist/country_data_until_2020.csv', 'data_dist/country_data_until_2021.csv', 'data_dist/country_data_until_2022.csv', 'data_dist/country_data_until_2023.csv', 'data_dist/country_data_until_2024.csv', 'data_dist/country_data_until_2025.csv'];
 let dict_year_csv = {};
-let startYear = 1960;
+let startYear = 2015;
 
 for (let i = 0; i < years_list.length; i++) {
     dict_year_csv[startYear + i] = years_list[i];
@@ -41,17 +38,30 @@ function trocarFluxo(novoFluxo) {
     renderMap();
 }
 
-function renderMap(year = 2023) {
+// Substitua o renderMap por esta versão unificada
+function renderMap() {
     svg_mapa.selectAll("*").remove();
 
     Promise.all([
         d3.json("geo_data/world.geojson"),
         Promise.resolve(currentCSV)
     ]).then(function ([world, data]) {
-        // Agora busca pela chave baseada no fluxo
-        // Exemplo: d[fluxoAtual] (que será 'Exports' ou 'Imports')
-        var dataById = new Map(data.map(d => [d.id, +d[fluxoAtual]]));
-        // ... restante da lógica de escala e desenho
+        // Agora usamos o fluxoAtual + a variável de categoria
+        // Exemplo: se fluxo = "Exports" e variável = "Coffee", buscamos d["Exports"]
+        // Ajuste conforme o nome das colunas nos seus novos CSVs processados
+        var dataById = new Map(data.map(d => [d.id, +d[fluxoAtual]])); 
+        
+        var dataValues = data.map(d => +d[fluxoAtual]);
+        var rankings = updateRanking(data); 
+        
+        var minNonZero = d3.min(dataValues.filter(value => value > 0));
+        var max = d3.max(dataValues);
+
+        var colorScale = d3.scaleSequential(d3.interpolateRgb("#ebffdc", "#1f4a02"))
+            .domain([minNonZero || 0, max || 1]); 
+
+        drawLegend(colorScale, minNonZero, max);
+        drawMap(world, dataById, colorScale, rankings);
     });
 }
 
@@ -81,28 +91,6 @@ function initializeMap() {
         .style("display", "none");
 
     renderMap();
-}
-
-function renderMap(year = 2023) {
-    svg_mapa.selectAll("*").remove(); // Limpa o SVG
-
-    Promise.all([
-        d3.json("geo_data/world.geojson"),
-        Promise.resolve(currentCSV)  // Supondo que currentCSV seja um array de objetos já em memória
-    ]).then(function ([world, data]) {
-        var dataById = new Map(data.map(d => [d.id, +d[variable]]));
-        var dataValues = data.map(d => +d[variable]);
-        var rankings = updateRanking(data); // Atualiza o ranking e obtém os rankings
-        // Filtrar valores para encontrar o mínimo diferente de zero
-        var minNonZero = d3.min(dataValues.filter(value => value > 0));
-        var max = d3.max(dataValues);
-
-        var colorScale = d3.scaleSequential(d3.interpolateRgb("#ebffdc", "#1f4a02"))
-            .domain([minNonZero, max]);  // Usar minNonZero aqui
-
-        drawLegend(colorScale, minNonZero, max);
-        drawMap(world, dataById, colorScale, rankings); // Certifique-se de passar rankings aqui
-    });
 }
 
 function drawLegend(colorScale, min, max) {
@@ -257,11 +245,14 @@ function toggleActiveButton(value, selector, activeClass, selectedValue) {
 }
 
 function updateVariable(newVariable) {
-    variable = newVariable;
+    // Se o botão selecionado for "Exports" ou "Imports", atualize o fluxo
+    if (newVariable === "Exports" || newVariable === "Imports") {
+        trocarFluxo(newVariable);
+    } else {
+        variable = newVariable; // Se for sub-categoria, mantém o foco
+    }
     renderMap();
-    cleanLine(); // Limpa o gráfico de linha
-    initializeLine(); // Atualiza o gráfico de linha
-    toggleActiveButton(newVariable, "#attributes button", 'button-active', newVariable);
+    // ... restante da função
 }
 
 function cleanLine() { 
