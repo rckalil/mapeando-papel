@@ -33,6 +33,8 @@ let fluxoAtual = 'Exports'; // Valor padrão
 
 function trocarFluxo(novoFluxo) {
     fluxoAtual = novoFluxo;
+    document.getElementById('btnExport').classList.toggle('button-active', fluxoAtual === 'Exports');
+    document.getElementById('btnImport').classList.toggle('button-active', fluxoAtual === 'Imports');
     // O seu código já tem renderMap() e updateVariable(), 
     // force uma atualização:
     renderMap();

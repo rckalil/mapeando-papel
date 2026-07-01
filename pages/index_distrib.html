@@ -51,63 +51,23 @@
     </header>
 
     <div class="container">
-            <div class="column map"> <!--Visualização-->
-                <div class="row">
-                    <div id="attributes" class="row">
-                        <p style="color: #e0e0e0; font-weight: bold; font-size: 24px;">Select the data to analyze</p>
-                        <button onclick="updateVariable('Total Distribution')" class="button-active">Total Distribution</button>
-                        <button onclick="updateVariable('Exports')">Exports</button>
-                        <button onclick="updateVariable('Bean Exports')">Bean Exports</button>
-                        <button onclick="updateVariable('Roast & Ground Exports')">Roast & Ground Exports</button>
-                        <button onclick="updateVariable('Soluble Exports')">Soluble Exports</button>
-                    </div>
-                    <div class="toggle-container">
-    <label>
-        <input type="radio" name="fluxo" value="Exports" checked onchange="trocarFluxo(this.value)"> Exportação
-    </label>
-    <label>
-        <input type="radio" name="fluxo" value="Imports" onchange="trocarFluxo(this.value)"> Importação
-    </label>
-</div>
+        <div class="column map">
+            <div class="row" style="margin-bottom: 20px; background: #333; padding: 15px; border-radius: 8px;">
+                <p style="color: #fff; font-weight: bold; margin-bottom: 10px;">Selecione o Fluxo:</p>
+                <div class="toggle-container">
+                    <button onclick="trocarFluxo('Exports')" class="button-active" id="btnExport">Exportação</button>
+                    <button onclick="trocarFluxo('Imports')" id="btnImport">Importação</button>
                 </div>
-                    <div id="attributes" class="row">
-                        <button onclick="updateVariable('Production')">Production</button>
-                        <button onclick="updateVariable('Imports')">Imports</button>
-                        <button onclick="updateVariable('Bean Imports')">Bean Imports</button>
-                        <button onclick="updateVariable('Roast & Ground Imports')">Roast & Ground Imports</button>
-                        <button onclick="updateVariable('Soluble Imports')">Soluble Imports</button>
-                    </div>
-                <div class = "fisrt page">
-                <div id = "principal" class="row">
-                    <div class="data">
-                        <svg id="map_distri" width="942.48" height="471.24"></svg>
-                        <div>
-                            <p style="color: #e0e0e0; font-weight: bold; font-size: 24px; margin-top: 0%; margin-bottom: 10px;">Select the year (1960 - 2023)</p>
-                            <input type="range" id="yearSlider" min="1960" max="2023" value="2023">
-                            <span id="yearDisplay">2023</span>
-                        </div>
-                    </div>
-                    <div id="top_countries">
-                        <h3 style="color: #454844;" ;>Country average distribution</h3>
-                        <span id="countryName" style="font-weight: bold;">Brazil</span>
+            </div>
 
-                        <div id="zoomableChart"></div>
-                        <!-- Inicialize a função após a carga do script -->
-                        <div class="column zoomable" style="display: none">
-                            <div class="row">
-                                <div class="data_2">
-                                    <svg id="rosquinha" height="300" width="300"></svg>
-                                </div>
-                            </div>
-                        </div>
-                        <p style="color: #e0e0e0; font-weight: bold; font-size: 2.5vh; margin-top: 0%; margin-bottom: 10px;">Click Imports or Exports to zoom-in</p>
-                        <p style="color: #e0e0e0; font-weight: bold; font-size: 2.5vh; margin-top: 0%; margin-bottom: 10px;">Click in the middle to zoom-out</p>
-                    </div>
-                </div>
+            <div id="attributes" class="row">
+                <p style="color: #e0e0e0; font-weight: bold; font-size: 20px;">Selecione a métrica:</p>
+                <button onclick="updateVariable('Total Distribution')" class="button-active">Total Distribution</button>
+                <button onclick="updateVariable('Production')">Production</button>
+                <button onclick="updateVariable('Bean Exports')">Bean Exports</button>
+                <button onclick="updateVariable('Bean Imports')">Bean Imports</button>
             </div>
-            <div id="seriesContainer" class="series">
-                <svg id="timeSeries" width="1196.263" height="145.24"></svg>
-            </div>
+            
         </div>
     </div>
     <script id="dynamicScript" src="js/map_distri.js"></script>
