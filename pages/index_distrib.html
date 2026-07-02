@@ -59,6 +59,34 @@
                     <button onclick="trocarFluxo('Imports')" id="btnImport">Importação</button>
                 </div>
             </div>
+
+            <div class = "fisrt page">
+                <div id = "principal" class="row">
+                    <div class="data">
+                        <svg id="map_distri" width="942.48" height="471.24"></svg>
+                        <div>
+                            <p style="color: #e0e0e0; font-weight: bold; font-size: 24px; margin-top: 0%; margin-bottom: 10px;">Select the year (1960 - 2023)</p>
+                            <input type="range" id="yearSlider" min="1960" max="2023" value="2023">
+                            <span id="yearDisplay">2023</span>
+                        </div>
+                    </div>
+                    <div id="top_countries">
+                        <h3 style="color: #454844;" ;>Country average distribution</h3>
+                        <span id="countryName" style="font-weight: bold;">Brazil</span>
+
+                        <div id="zoomableChart"></div>
+                        <!-- Inicialize a função após a carga do script -->
+                        <div class="column zoomable" style="display: none">
+                            <div class="row">
+                                <div class="data_2">
+                                    <svg id="rosquinha" height="300" width="300"></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="color: #e0e0e0; font-weight: bold; font-size: 2.5vh; margin-top: 0%; margin-bottom: 10px;">Click Imports or Exports to zoom-in</p>
+                        <p style="color: #e0e0e0; font-weight: bold; font-size: 2.5vh; margin-top: 0%; margin-bottom: 10px;">Click in the middle to zoom-out</p>
+                    </div>
+                </div>
             
         </div>
     </div>
