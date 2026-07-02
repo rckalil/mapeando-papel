@@ -19,14 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
         display.textContent = this.value;
         updateCurrentCSV(this.value);
     }
-
-    // Inicializa o slider com o valor padrão ao carregar a página
-    updateCurrentCSV(slider.value);
-    initializeMap();
-    initializeLine(); // Chamada para inicializar o gráfico de linha
-    const initialVariable = 'Total Distribution'; // Define a variável inicial aqui
-    updateVariable(initialVariable);
-    toggleActiveButton(initialVariable, '#attributes button', 'button-active', initialVariable);
 });
 
 let fluxoAtual = 'Exports'; // Valor padrão
@@ -259,34 +251,6 @@ function updateVariable(newVariable) {
 
 function cleanLine() { 
     d3.select("#timeSeries").selectAll("*").remove(); // Limpa o SVG
-}
-
-// Inicializa o gráfico de linha
-function initializeLine() {
-
-    const margin = {top: 20, right: 20, bottom: 50, left: 60};
-    const width = 1126.263 ;
-    const height = 74.24 ;
-    
-    const svg = d3.select("#timeSeries")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    // Carrega os dados aqui
-    d3.csv("data/psd_coffee_variations_year.csv").then(function(data) {
-        data.forEach(function(d) {
-            d.Year = +d.Year;
-            d[variable] = +d[variable];
-        });
-
-        // Desenha o gráfico de linha com os dados carregados
-        lineDistrib(svg, data, width, height); // Adiciona os argumentos de dimensões e margem
-    }).catch(error => {
-        console.error("Error loading CSV data: ", error);
-    });
 }
 
 function lineDistrib(svg, data, width, height) {
