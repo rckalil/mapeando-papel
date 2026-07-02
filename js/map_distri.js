@@ -1,10 +1,10 @@
 // Variáveis globais
 var variable = "Exports";
-var currentCSV = d3.csv("/mapeando-papel/data_dist/country_data_until_2015.csv"); // Caminho padrão do arquivo CSV
+var currentCSV = d3.csv("../data_dist/country_data_until_2016.csv"); // Caminho padrão do arquivo CSV
 var svg_mapa, projection, path, tooltip;
-var years_list = ['/mapeando-papel/data_dist/country_data_until_2015.csv', '/mapeando-papel/data_dist/country_data_until_2016.csv', '/mapeando-papel/data_dist/country_data_until_2017.csv', '/mapeando-papel/data_dist/country_data_until_2018.csv', '/mapeando-papel/data_dist/country_data_until_2019.csv', '/mapeando-papel/data_dist/country_data_until_2020.csv', '/mapeando-papel/data_dist/country_data_until_2021.csv', '/mapeando-papel/data_dist/country_data_until_2022.csv', '/mapeando-papel/data_dist/country_data_until_2023.csv', '/mapeando-papel/data_dist/country_data_until_2024.csv', '/mapeando-papel/data_dist/country_data_until_2025.csv'];
+var years_list = ['../data_dist/country_data_until_2016.csv', '../data_dist/country_data_until_2017.csv', '../data_dist/country_data_until_2018.csv', '../data_dist/country_data_until_2019.csv', '../data_dist/country_data_until_2020.csv', '../data_dist/country_data_until_2021.csv', '../data_dist/country_data_until_2022.csv', '../data_dist/country_data_until_2023.csv', '../data_dist/country_data_until_2024.csv', '../data_dist/country_data_until_2025.csv'];
 let dict_year_csv = {};
-let startYear = 2015;
+let startYear = 2016;
 
 for (let i = 0; i < years_list.length; i++) {
     dict_year_csv[startYear + i] = years_list[i];
